@@ -15,5 +15,5 @@ public interface codeDao {
     int addUserCode(UserCode userCode);
 
     @Select({"select user_pid from user_code where user_openid=#{openid}"})
-    String selectUserPid(String openid);
+    Integer selectUserPid(String openid);
 }

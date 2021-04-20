@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.StuInfo;
 import com.example.demo.entity.UserCode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.service.stuService;
 import com.example.demo.service.codeService;
 import com.example.demo.utils.HttpUtil;
 import java.io.IOException;
@@ -25,6 +28,9 @@ public class UserController {
 
     @Autowired
     private codeService codeService;
+
+    @Autowired
+    private stuService stuService;
 
     @RequestMapping(value = "/abc",method = RequestMethod.GET)
     @ResponseBody
@@ -82,11 +88,20 @@ public class UserController {
         OpenIdJson openIdJson = mapper.readValue(result,OpenIdJson.class);
 
         userCode.setUserOpenid(openIdJson.getOpenid());
-        userCode.setUserSessionkey(openIdJson.getSession_key());
-        codeService.addUserCode(userCode);
+        System.out.println(codeService.selectUserPid(userCode));
+//        userCode.setUserOpenid(openIdJson.getOpenid());
+//        userCode.setUserSessionkey(openIdJson.getSession_key());
+//        codeService.addUserCode(userCode);
 
         System.out.println(result.toString());
         System.out.println(openIdJson.getOpenid());
         return result;
+    }
+
+    @RequestMapping(value = "/addstuinfo",method = RequestMethod.GET)
+    @ResponseBody
+    public String addStuInfo(@RequestParam StuInfo stuInfo){//StuInfo stuInfo
+        stuService.addStu(stuInfo);
+        return "OK";
     }
 }

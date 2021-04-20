@@ -1,11 +1,15 @@
 package com.example.demo.entity;
 
 
+import java.util.Date;
+
 public class UserCode {
 
   private int userPid;
   private String userOpenid;
   private String userSessionkey;
+  private Date logintime;
+  private Date lasttime;
 
 
   public int getUserPid() {
@@ -32,6 +36,24 @@ public class UserCode {
 
   public void setUserSessionkey(String userSessionkey) {
     this.userSessionkey = userSessionkey;
+  }
+
+
+  public Date getLogintime() {
+    return logintime;
+  }
+
+  public void setLogintime(Date logintime) {
+    this.logintime = logintime;
+  }
+
+
+  public Date getLasttime() {
+    return lasttime;
+  }
+
+  public void setLasttime(Date lasttime) {
+    this.lasttime = lasttime;
   }
 
 }

@@ -13,4 +13,7 @@ public class codeService {
     public int addUserCode(UserCode userCode){
         return codeDao.addUserCode(userCode);
     }
+    public Integer selectUserPid(UserCode userCode){
+        return codeDao.selectUserPid(userCode.getUserOpenid());
+    }
 }
