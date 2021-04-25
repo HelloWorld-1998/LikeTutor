@@ -8,12 +8,11 @@ import java.util.List;
 @Mapper
 public interface stuDao {
     String table_name="stu_info";
-    String insert_field="user_pid,username,wxnumber,usersex,grade1st,situation," +
+    String insert_field="user_pid,username,wxnumber,usersex,grade,situation," +
             "school,address,weektime,daytime,attime,asksex,asktype,askfor";
 
     @Insert({"insert into",table_name, "(", insert_field,
-            ") values (#{userPid},#{username},#{wxnumber},#{usersex},#{grade}," +
-                    "#{situation},#{school},#{address},#{weektime},#{daytime},#{attime},#{asksex},#{asktype},#{askfor}"})
+            ") values (#{userPid},#{username},#{wxnumber},#{usersex},#{grade},#{situation},#{school},#{address},#{weektime},#{daytime},#{attime},#{asksex},#{asktype},#{askfor})"})
     int addStu(StuInfo stuInfo);
 
     @Select({"select * from ",table_name,"where user_pid=#{userPid}"})

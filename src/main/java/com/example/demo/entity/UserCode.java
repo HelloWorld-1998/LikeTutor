@@ -8,7 +8,6 @@ public class UserCode {
   private int userPid;
   private String userOpenid;
   private String userSessionkey;
-  private Date logintime;
   private Date lasttime;
 
 
@@ -38,14 +37,6 @@ public class UserCode {
     this.userSessionkey = userSessionkey;
   }
 
-
-  public Date getLogintime() {
-    return logintime;
-  }
-
-  public void setLogintime(Date logintime) {
-    this.logintime = logintime;
-  }
 
 
   public Date getLasttime() {

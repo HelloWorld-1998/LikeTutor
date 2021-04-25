@@ -9,7 +9,7 @@ public interface userDao {
     String insert_field="UserId,UserName,Age";
 
     @Insert({"insert into",table_name, "(", insert_field,
-            ") values (#{userOpenid},#{userSessionkey}"})
+            ") values (#{userOpenid},#{userSessionkey)"})
     int addUser(User user);
 
     @Select({"select UserName from user where Age=#{age}"})

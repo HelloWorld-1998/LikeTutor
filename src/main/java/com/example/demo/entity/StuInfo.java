@@ -2,6 +2,27 @@ package com.example.demo.entity;
 
 public class StuInfo {
 
+    @Override
+    public String toString() {
+        return "StuInfo{" +
+                "userPid=" + userPid +
+                ", orderid=" + orderid +
+                ", username='" + username + '\'' +
+                ", wxnumber='" + wxnumber + '\'' +
+                ", usersex='" + usersex + '\'' +
+                ", grade='" + grade + '\'' +
+                ", situation='" + situation + '\'' +
+                ", school='" + school + '\'' +
+                ", address='" + address + '\'' +
+                ", weektime='" + weektime + '\'' +
+                ", daytime='" + daytime + '\'' +
+                ", attime='" + attime + '\'' +
+                ", asksex='" + asksex + '\'' +
+                ", asktype='" + asktype + '\'' +
+                ", askfor='" + askfor + '\'' +
+                '}';
+    }
+
   private int userPid;
   private int orderid;
   private String username;
@@ -68,7 +89,7 @@ public class StuInfo {
     return grade;
   }
 
-  public void setGrade1St(String grade) {
+  public void setGrade(String grade) {
     this.grade = grade;
   }
 
