@@ -13,5 +13,7 @@ public class teaService {
     public  int addTea(TeaInfo teaInfo){
         return teaDao.addTea(teaInfo);
     }
+
+    public int updateTea(TeaInfo teaInfo){return teaDao.updateTea(teaInfo);}
     
 }

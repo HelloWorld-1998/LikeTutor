@@ -4,6 +4,7 @@ import com.example.demo.entity.StuInfo;
 import com.example.demo.entity.TeaInfo;
 import com.example.demo.entity.UserCode;
 
+//import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,14 +12,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.*;
 
+import com.example.demo.service.teaService;
 import com.example.demo.service.stuService;
 import com.example.demo.service.codeService;
 import com.example.demo.utils.HttpUtil;
+
+import com.google.gson.Gson;
+import org.apache.commons.io.FileUtils;
+import java.io.File;
 import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.entity.OpenIdJson;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 
 import java.util.List;
@@ -34,6 +41,11 @@ public class UserController {
 
     @Autowired
     private stuService stuService;
+
+    @Autowired
+    private teaService teaService;
+
+    private String imgbuff;
 
     @RequestMapping(value = "/abc",method = RequestMethod.GET)
     @ResponseBody
@@ -158,14 +170,49 @@ public class UserController {
     @ResponseBody
     public String postman(@RequestParam String teaInfobuff){
         System.out.println(teaInfobuff.toString());
+//        Person person = gson.fromJson(str, Person.class);
+        Gson gson=new Gson();
+        TeaInfo teaInfo=gson.fromJson(teaInfobuff,TeaInfo.class);
+        teaInfo.setTphoto(imgbuff);
+        System.out.println(teaInfo.toString());
+        teaService.addTea(teaInfo);
         return "ok";
     }
 
     @RequestMapping(value = "/upload")
     @ResponseBody
-    public String upload(HttpServletRequest request,@RequestParam MultipartFile file){
+    public String upload(HttpServletRequest request, @RequestParam MultipartFile file){
         System.out.println(file.toString());
-        return "ok";
+        System.out.println(request.getParameter("userpid"));
+        System.out.println(file.getOriginalFilename());
+        String uploadPath = "/upload/temp";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+        String oldName = file.getOriginalFilename();
+        String extensionName = "";
+        // 获取原来的扩展名
+        if ((oldName != null) && (oldName.length() > 0)) {
+            int dot = oldName.lastIndexOf('.');
+            if ((dot > -1) && (dot < (oldName.length() - 1))) {
+                extensionName = oldName.substring(dot);
+            }
+        }
+        // 构建文件名称
+        imgbuff = System.currentTimeMillis() + "_" + System.nanoTime() + extensionName;
+        // 构建文件路径
+//        String filePath = uploadPath + File.separator + fileName;
+        String filePath = "C:/Users/Song‘s/my-project/static/upload/" + imgbuff;
+        // 保存文件
+        try {
+            FileUtils.writeByteArrayToFile(new File(filePath), file.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("接收文件成功。保存在:"+filePath);
+
+        return imgbuff;
     }
 
 
